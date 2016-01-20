@@ -1,0 +1,270 @@
+<html>
+  <head>
+   <link rel="stylesheet" type="text/css" href="myStyle.css">
+     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.js"></script>      
+<script type="text/javascript"  src="jquery.table2excel.js"></script>
+<script type="text/javascript"  src="Invest.js"></script>
+
+   
+
+  </head>
+  <body>
+    <div ng-app="AppOne" ng-controller="myController" >
+     <div id="headDiv" >
+    <img ng-src="{{image}}" alt="Description" />
+    </div>
+    <form name="myForm" novalidate >
+    <table class="myTable2">
+    <tr>
+    <td>
+      <div class="parameter">
+      First Name:</div>
+       <input class="myTextBox" type="text" ng-model="firstName" name="fname" required>
+        <span style="color:red" ng-show="myForm.fname.$dirty && myForm.fname.$invalid">
+<span ng-show="myForm.fname.$error.required">First Name is required.</span>
+</span>
+       </td>
+       <td>
+        <div class="parameter">
+      Last Name: </div>
+      <input  class="myTextBox" type="text" ng-model="lastName" name="lname">
+      <td>
+      </tr>
+      <tr>
+      <td>
+       <div class="parameter">
+      Age:</div>
+      <input  class="myTextBox" type = "number" ng-model="userAge" name="uAge" min=18 required>
+<span style="color:red" ng-show="myForm.uAge.$dirty && myForm.uAge.$invalid">
+<span ng-show="myForm.uAge.$error.required">Age is required.</span>
+<span ng-show="myForm.uAge.$error.min">Should be more than 18.</span>
+</span>
+      </td>
+      <td>
+       <div class="parameter">
+      Address:</div>
+      <input  class="myTextBox" type = "text" ng-model="userPlace" name="addr" required>
+      <span style="color:red" ng-show="myForm.addr.$dirty && myForm.addr.$invalid">
+<span ng-show="myForm.addr.$error.required">Address is required.</span>
+</span>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <div class="parameter">Gender:</div>
+      <input type="radio" ng-model="userGender" value="male" name="uGender" ng-required="!userGender"/>Male
+      <input type="radio" ng-model="userGender" value="female" name="uGender" ng-required="!userGender"/>Female <br/>
+      <span style="color:red" ng-show="myForm.uGender.$dirty && myForm.uGender.$invalid">
+<span ng-show="myForm.uGender.$error.required">Select a Gender.</span>
+</span>
+      </td>
+      <td>
+      <div class="parameter">
+      Zip Code:</div>
+      <input  class="myTextBox" type = "text" ng-model="userZip" name="zCode" required="" ng-maxlength=6 ng-minlength=6 ng-pattern="/^[0-9]{1,6}$/">
+      <span style="color:red" ng-show="myForm.zCode.$dirty && myForm.zCode.$invalid">
+<span ng-show="myForm.zCode.$error.required">Zip Code is required.</span>
+<span ng-show="myForm.zCode.$error.maxlength">Invalid Zip Code.</span>
+<span ng-show="myForm.zCode.$error.minlength">Invalid Zip Code.</span>
+<span ng-show="myForm.zCode.$error.pattern">Invalid Zip Code.</span>
+</span>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <div class="parameter">
+      Pan Card Number:</div>
+      <input class="myTextBox" type = "text" ng-model="pCard" name="pCard" required="" ng-maxlength=10 ng-minlength=10 ng-pattern="/^[A-Z0-9]{1,10}$/">
+      <span style="color:red" ng-show="myForm.pCard.$dirty && myForm.pCard.$invalid">
+<span ng-show="myForm.pCard.$error.required">Pan Card is required.</span>
+<span ng-show="myForm.pCard.$error.maxlength">Invalid Pan Card Number.</span>
+<span ng-show="myForm.pCard.$error.minlength">Invalid Pan Card Number.</span>
+<span ng-show="myForm.pCard.$error.pattern">Invalid Pan Card Number.</span>
+</span>
+      </td>
+      <td>
+      <div class="parameter">
+      Email Id:</div>
+      <input class="myTextBox" type = "email" ng-model="email"  name="uEmail" required>
+      <span style="color:red" ng-show="myForm.uEmail.$dirty && myForm.uEmail.$invalid">
+      <span ng-show="myForm.uEmail.$error.required">Email is required.</span>
+      <span ng-show="myForm.uEmail.$error.email">Invalid Email.</span>
+      </span>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <div class="parameter">
+      Contact number:</div>
+      <input class="myTextBox" type = "number" ng-model="contact" name="uContact" required ng-maxlength=10 ng-minlength=7>
+      <span style="color:red" ng-show="myForm.uContact.$dirty && myForm.uContact.$invalid">
+      <span ng-show="myForm.uContact.$error.required">Contact is required.</span>
+      <span ng-show="myForm.uContact.$error.maxlength">Invalid Contact.</span>
+      <span ng-show="myForm.uContact.$error.minlength">Invalid Contact.</span>
+      </span>
+      </td>
+       <td>
+      <div class="parameter">
+      Date of Birth:</div>
+     <input class="myTextBox" type="date" ng-model="dob" required name="uDob"/>
+     <span style="color:red" ng-show="myForm.uDob.$dirty && myForm.uDob.$invalid">
+      <span ng-show="myForm.uDob.$error.required">Date of Birth is required.</span>
+      </span>
+      </td>
+      </tr>
+      </table>
+
+      <br><br>
+
+<table class="myTable1">
+<tr>
+<th ng-hide="myForm.fname.$error.required || myForm.fname.$pristine"><p>Name</p></th>
+<th ng-hide="myForm.uAge.$invalid || myForm.uAge.$pristine"><p>Age</p></th>
+<th ng-hide="myForm.addr.$error.required || myForm.addr.$pristine"><p>Address</p></th>
+<th ng-hide="myForm.pCard.$invalid || myForm.pCard.$pristine"><p>Pan Card</p></th>
+<th ng-hide="myForm.uEmail.$invalid || myForm.uEmail.$pristine"><p>Email</p></th>
+<th ng-hide="myForm.uContact.$invalid || myForm.uContact.$pristine"><p>Contact</p></th>
+<th ng-hide="myForm.uDob.$invalid || myForm.uDob.$pristine"><p>Date of Birth</p></th>
+<th ng-hide="myForm.uGender.$error.required || myForm.uGender.$pristine"><p>Gender</p></th>
+<th ng-hide="myForm.zCode.$invalid || myForm.zCode.$pristine"><p>Zip Code</p></th>
+</tr>
+<tr>
+<td ng-hide="myForm.fname.$error.required || myForm.fname.$pristine">
+<p class="myPara1" ng-init="firstName='';lastName=''" >{{(firstName +" "+ lastName)|uppercase}}</p></td>
+<td ng-hide="myForm.uAge.$invalid || myForm.uAge.$pristine"><p class="myPara1" ng-init="userAge=''">{{ userAge }}</p></td>
+<td ng-hide="myForm.addr.$error.required || myForm.addr.$pristine"><p class="myPara1" ng-init="userPlace=''">{{ userPlace }}</p></td>
+<td ng-hide="myForm.pCard.$invalid || myForm.pCard.$pristine"><p class="myPara1" ng-init="pCard=''">{{ pCard |uppercase}}</p></td>
+<td ng-hide="myForm.uEmail.$invalid || myForm.uEmail.$pristine"><p class="myPara1" ng-init="email=''">{{ email }}</p></td>
+<td ng-hide="myForm.uContact.$invalid || myForm.uContact.$pristine"><p class="myPara1" ng-init="contact=''">{{ contact }}</p></td>
+<td ng-hide="myForm.uDob.$invalid || myForm.uDob.$pristine" ><p class="myPara1" ng-init="dob=''">{{ dob }}</p></td>
+<td ng-hide="myForm.uGender.$error.required || myForm.uGender.$pristine"><p class="myPara1" ng-init="userGender=''">{{ userGender }}</p></td>
+<td ng-hide="myForm.zCode.$invalid || myForm.zCode.$pristine"><p class="myPara1" ng-init="userZip=''">{{ userZip }}</p></td>
+</tr>
+</table>
+<br>
+
+             <br>Photo:
+      <input type="file" ngf-select ng-model="picFile" name="file"    
+             accept="image/*" ngf-max-size="2MB" required>
+      <i ng-show="myForm.file.$error.required">*required</i><br>
+      <i ng-show="myForm.file.$error.maxSize">File too large 
+          {{picFile.size / 1000000|number:1}}MB: max 2M</i>
+      <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile"ngf-resize="{width: 100, height: 100}" class="thumb">
+       <button ng-click="picFile = null" ng-show="picFile">Remove</button>
+      <br>
+      <button ng-disabled="myForm.file.$error.required" 
+              ng-click="uploadPic(picFile)">Submit</button>
+      <span class="progress" ng-show="picFile.progress >= 0">
+        <div style="width:{{picFile.progress}}%" 
+            ng-bind="picFile.progress + '%'"></div>
+      </span>
+      <span ng-show="picFile.result">Upload Successful</span>
+      <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+
+        <br><br>
+
+<div  "!pflag || myForm.fname.$invalid || myForm.pCard.$invalid">
+<button ng-click = "toggle()" class="myButton">Add To PortFolio</button>
+<br><br>
+</div>
+
+<div ng-hide = "pflag || firstName==''">
+<h1>Portfolio:</h1>
+<!--<p>Type of investment: <input type="text" ng-model="iType"></p>-->
+<p>Type of investment:
+ <select name="repeatSelect" id="repeatSelect" ng-model="iType">
+      <option ng-repeat="option in data.availableOptions" value="{{option.id}}">{{option.name}}</option>
+    </select></p>
+<p>Name of investment: <input type="text" ng-model="investName"></p>
+<p>Total units: <input type="number" ng-model="unitNum"></p>
+<p>Unit Price: <input type="text" ng-model="unitPrice"></p>
+<p ng-init="unitPrice='0';unitNum='0'">Total Amount : {{ (unitPrice * unitNum)|currency:"&#8360;"}}</p>
+<p>Premium Amount: <input type="text" ng-model="premium"></p>
+<p>Sum Assured: <input type="text" ng-model="assurSum"></p>
+<button ng-click = "AddRows()">Add Investment</button>
+<br><br>
+<div ng-hide = "inversepflag">
+<button ng-click = "toggle()" class="myButton">Hide</button>
+</div>
+
+</div>
+<br>
+<br>
+<label ng-show="investmentList.length">Search Investment: <input ng-model="searchText"></label>
+
+<div id="investTable">
+<h3>The List of Investment</h3>
+<table id="invest_table" cellpadding="1" class="myTable"> 
+<colgroup>
+            <col width="15%">
+                <col width="20%">
+                    <col width="15%">
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="20%">
+        </colgroup>
+<thead>
+<tr>
+<th>Investment Type</th>
+<th>Investment Name</th>
+<th>Number of units</th>
+<th>Unit Price</th>
+<th>Premium Amount</th>
+<th>Assured Amount</th>
+<th ng-show="investmentList.length">Revove Investment</th>
+</tr>
+</thead>
+<tr ng-repeat="invetment in investmentList | filter:searchText" >
+    <td>
+    {{invetment.iType}}
+    </td>
+    <td>
+    {{invetment.investName}}
+    </td>
+    <td>
+    {{invetment.unitNum}}
+    </td>
+    <td>
+    {{invetment.unitPrice|currency:"&#8360;"}}
+    </td>
+    <td>
+    {{invetment.premium|currency:"&#8360;"}}
+    </td>
+    <td>
+    {{invetment.assurSum|currency:"&#8360;"}}
+    </td>
+    <td class="noExl">
+    <input ng-show="investmentList.length" type="button" value="Remove"ng-click="removeRow(invetment.investName)"/>
+    </td>
+  </tr>
+  
+</table>
+<br>
+<table>
+<thead>
+  <tr>
+  <th>Total Premium</th>
+  <th>Total Assured Sum</th>
+  </tr>
+</thead>
+
+<tr>
+<td>{{totalPremmium()|currency:"&#8360;"}}</td>
+  <td>{{totalSumAssurred()|currency:"&#8360;" }}</td>
+</tr>
+</table>
+
+</div>
+<br>
+<button onclick="javascript:demoFromHTML();" class="myButton">EXPORT EXCEL</button>
+ <!-- For date picker by j query-->
+ <!--<input id="wrapper" type="text" ng-model="date" jqdatepicker />
+<br/>
+{{ date }}-->
+
+ </form>
+    </div>
+</body>
+</html>

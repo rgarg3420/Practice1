@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   
+    xmlns:context="http://www.springframework.org/schema/context"
+    
+    xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+        <!-- scan package to check for special controller class -->
+        
+     
+                   <context:component-scan base-package="main.com"></context:component-scan>
+              <!-- Enables the Spring MVC @Controller programming model -->
+                   <mvc:annotation-driven/> 
+                
+             
+    <aop:aspectj-autoproxy/>
+    <!-- <context:load-time-weaver/> -->
+    
+    
+    <!-- AOP support -->
+    <bean id='controllerAspect' class='main.com.logging.LoggingAspect' />
+                
+                <bean id="cust" class="main.com.dtos.Customer"></bean>
+                <bean id="superHeroDao" class="main.com.hibernateDao.SuperHeroDAO" init-method="initialize" destroy-method="finish"></bean>
+                 <bean id="personDao" class="main.com.hibernateDao.PersonDao"></bean>
+                   
+                   
+                   
+                   <mvc:resources mapping="/resources/**" location="/resources/" />
+                      <!--  <beans:import resource="classpath:aop.xml"/>-->
+    
+                   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                       <property name="prefix" value="/WEB-INF/views/"/>
+                       <property name="suffix" value=".jsp"/>
+                   </bean>
+                   
+                   
+                   
+                   <bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:messages" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+ 
+    <bean id="localeResolver"
+        class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="en" />
+        <property name="cookieName" value="myAppLocaleCookie"/>
+        <property name="cookieMaxAge" value="3600"/>
+    </bean>
+ 
+    <bean id="customerValidator" class="main.com.validator.CustomerValidator" />
+     <bean id="superHeroValidator" class="main.com.validator.SuperHeroValidator" />
+    <mvc:interceptors>
+        <bean
+            class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="locale" />
+        </bean>
+        
+
+    </mvc:interceptors>
+      <mvc:interceptors>
+      <bean class="main.com.interceptor.BaseInterceptor" />
+    </mvc:interceptors> 
+
+      <mvc:resources mapping="/static/**" location="/WEB-INF/views/static/" />
+    
+</beans>    

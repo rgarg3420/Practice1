@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+  <property name="hibernate.connection.url">jdbc:oracle:thin:@127.0.0.1:1521:XE</property>
+  <property name="hibernate.connection.username">system</property>
+  <property name="hibernate.connection.password">manager</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+  <property name="hibernate.default_schema">SYSTEM</property>
+  <property name="show_sql">true</property>
+  <property name="hibernate.hbm2ddl.auto=update">update</property>
+  <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+  <property name="hibernate.cache.use_second_level_cache">true</property>
+  <property name="hibernate.cache.use_query_cache">true</property>
+  <property name="net.sf.ehcache.configurationResourceName">/myehcache.xml</property>
+  
+
+<mapping class="main.com.entity.Superhero"></mapping>
+<mapping class="main.com.entity.SuperheroAlias"></mapping>
+<mapping class="main.com.entity.SuperVillians"></mapping>
+<mapping class="main.com.entity.SuperPowers"></mapping>
+<mapping class="main.com.entity.PersonEntity.Person"></mapping>
+
+
+</session-factory>
+</hibernate-configuration>
